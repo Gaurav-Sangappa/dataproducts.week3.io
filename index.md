@@ -1,37 +1,30 @@
-## Welcome to GitHub Pages
+---
+title: "Car Data"
+author: "Gaurav H Sangappa"
+date: "january 15, 2019"
+output: html_document
+---
 
-You can use the [editor on GitHub](https://github.com/Gaurav-Sangappa/dataproducts.week3.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+## Understanding Gas Mileage
 
-### Jekyll Themes
+Using the `mtcars` dataset we plot can attempt to understand the relationship
+of various factors to gas mileage (`mpg`).
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Gaurav-Sangappa/dataproducts.week3.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+We plot weight (`wt`) vs. mileage (`mpg`) spatially along the x/y axes. We 
+visualize the number of cylinders (`cyl`) as colors and the amount of
+horsepower (`hp`) as the size of an individual point in the plot.
 
-### Support or Contact
+## Visualizing the Data
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+```{r plot, echo=FALSE}
+suppressPackageStartupMessages(library(plotly))
+plot_ly(data = mtcars, x = ~wt, y = ~mpg, 
+        color = ~as.factor(cyl), size = ~hp,
+        text = ~paste("Weight: ", wt, '<br>MPG:', mpg),
+        type = "scatter", mode = "markers") %>%
+  layout(title = "Car Data")
+```
